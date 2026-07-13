@@ -1,3 +1,130 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ============ THEME TOKENS ============ */
+:root {
+  --bg: #0a0a12;
+  --bg-elev: #11111f;
+  --surface: rgba(24, 22, 44, 0.6);
+  --border: rgba(192, 68, 240, 0.12);
+  --border-hover: rgba(192, 68, 240, 0.35);
+  --accent: #c044f0;
+  --accent-2: #8B2FC9;
+  --accent-deep: #6D28D9;
+  --text: #f5f5fa;
+  --text-muted: #a0a0c0;
+  --text-dim: #7b7a9d;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 12, 30, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-2), var(--accent-deep));
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+}
+
+/* ============ SELECTION ============ */
+::selection {
+  background: rgba(192, 68, 240, 0.3);
+  color: #fff;
+}
+
+/* ============ NUMBER INPUT CLEANUP ============ */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+/* ============ CARD BASE STYLE ============ */
+.glass-card {
+  position: relative;
+  border-radius: 16px;
+  background:
+    linear-gradient(145deg, rgba(24, 22, 48, 0.65), rgba(14, 14, 28, 0.9));
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    0 4px 24px rgba(124, 58, 237, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(192, 68, 240, 0.25), transparent);
+  pointer-events: none;
+}
+
+.glass-card:hover {
+  border-color: var(--border-hover);
+  box-shadow:
+    0 8px 40px rgba(124, 58, 237, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}

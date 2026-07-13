@@ -1,65 +1,66 @@
 export default function StatCard({ title, value }) {
-
   const styles = {
-    "VIP Customers": "#C044F0",
-    "Loyal Customers": "#8B2FC9",
-    "Regular Customers": "#6D28D9",
-    "Lost Customers": "#4B0082"
+    "VIP Customers":     { accent: "#c044f0", glow: "rgba(192,68,240,0.18)" },
+    "Loyal Customers":   { accent: "#8B2FC9", glow: "rgba(139,47,201,0.16)" },
+    "Regular Customers": { accent: "#6D28D9", glow: "rgba(109,40,217,0.14)" },
+    "Lost Customers":    { accent: "#4B0082", glow: "rgba(75,0,130,0.12)" },
   };
 
-  const accent = styles[title] || "#8B2FC9";
+  const { accent, glow } = styles[title] || { accent: "#8B2FC9", glow: "rgba(139,47,201,0.15)" };
 
   return (
     <div
-      className="group relative rounded-xl p-5 border border-[#2a1a4a] backdrop-blur-md transition-all duration-300"
+      className="group relative rounded-2xl p-5 transition-all duration-300 cursor-default overflow-hidden"
       style={{
-        background: "rgba(18, 18, 42, 0.65)"
+        background: "linear-gradient(145deg, rgba(24,22,48,0.65), rgba(14,14,28,0.9))",
+        border: "1px solid rgba(42,26,74,0.5)",
+        backdropFilter: "blur(16px)",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = `${accent}66`;
+        e.currentTarget.style.boxShadow = `0 8px 40px ${glow}, inset 0 1px 0 rgba(255,255,255,0.05)`;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "rgba(42,26,74,0.5)";
+        e.currentTarget.style.boxShadow = "none";
       }}
     >
-
-      {/* BASE SOFT GRADIENT */}
+      {/* Soft accent gradient */}
       <div
-        className="absolute inset-0 rounded-xl opacity-15 transition-all duration-300 group-hover:opacity-40"
+        className="absolute inset-0 rounded-2xl opacity-10 transition-opacity duration-300 group-hover:opacity-25 pointer-events-none"
         style={{
-          background: `radial-gradient(circle at top left, ${accent}, transparent 65%)`
+          background: `radial-gradient(circle at top left, ${accent}, transparent 60%)`,
         }}
       />
 
-      {/* HOVER GLOW */}
+      {/* Top shimmer line */}
       <div
-        className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300"
+        className="absolute top-0 left-0 right-0 h-px opacity-30 group-hover:opacity-60 transition-opacity duration-300"
         style={{
-          boxShadow: `0 0 40px ${accent}55`
+          background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
         }}
       />
 
-      {/* BORDER GLOW ON HOVER */}
+      {/* Left accent bar */}
       <div
-        className="absolute inset-0 rounded-xl border border-transparent group-hover:border-[1px] transition-all duration-300"
+        className="absolute left-0 top-3 bottom-3 w-[3px] rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-300"
         style={{
-          borderColor: `${accent}55`
+          background: `linear-gradient(to bottom, ${accent}, transparent)`,
         }}
       />
 
-      {/* LEFT ACCENT BAR */}
-      <div
-        className="absolute left-0 top-0 h-full w-[3px] rounded-l-xl opacity-60 group-hover:opacity-100 transition-all duration-300"
-        style={{
-          background: `linear-gradient(to bottom, ${accent}, transparent)`
-        }}
-      />
-
-      {/* CONTENT */}
-      <div className="relative z-10 pl-3">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-[#a0a0c0] mb-2">
+      {/* Content */}
+      <div className="relative z-10 pl-4">
+        <p className="text-[10px] uppercase tracking-[0.28em] text-[#a0a0c0] mb-2 font-medium">
           {title}
         </p>
-
-        <h2 className="text-2xl font-bold text-white group-hover:tracking-wider transition-all duration-300">
-          {value}
+        <h2
+          className="text-2xl font-bold text-white transition-all duration-300 group-hover:tracking-wide"
+          style={{ transition: "letter-spacing 0.3s ease" }}
+        >
+          {value.toLocaleString()}
         </h2>
       </div>
-
     </div>
   );
 }
